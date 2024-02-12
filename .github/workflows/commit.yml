@@ -1,0 +1,21 @@
+name: Commit
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Prepare build
+        uses: ./.github/actions/install-flutter
+
+      - name: Ensure the Dart code is formatted correctly
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze project source
+        run: dart analyze
